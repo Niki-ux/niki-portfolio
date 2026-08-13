@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Lock } from "lucide-react";
 
 function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const location = useLocation();
 
   const navigation = [
     ["About", "/about"],
@@ -22,7 +24,12 @@ function Navbar() {
 
       <div className="nav-inner">
 
-        <Link to="/" className="home-nav-link">
+        <Link
+          to="/"
+          className={`home-nav-link ${
+            location.pathname === "/" ? "active-nav" : ""
+          }`}
+        >
           <svg
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -42,16 +49,27 @@ function Navbar() {
         <nav className="desktop-nav">
 
           {navigation.map(([label, path]) => (
-            <Link key={path} to={path}>
+            <Link
+              key={path}
+              to={path}
+              className={location.pathname === path ? "active-nav" : ""}
+            >
               {label}
             </Link>
           ))}
 
         </nav>
 
-        <Link to="/contact" className="talk-button">
-          Let's talk
-        </Link>
+        {/* 🔐 Login / Register */}
+        <Link
+            to="/vault"
+            className={`talk-button vault-button ${
+              location.pathname === "/vault" ? "active-nav" : ""
+            }`}
+          >
+            <Lock size={15} />
+            <span>Login / Register</span>
+          </Link>
 
         <button
           className="mobile-menu-button"
@@ -77,10 +95,10 @@ function Navbar() {
           ))}
 
           <Link
-            to="/contact"
+            to="/vault"
             onClick={() => setMenuOpen(false)}
           >
-            Let's talk
+            🔒 Login / Register
           </Link>
 
         </nav>

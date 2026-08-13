@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Vault from "./pages/Vault";
 
 function Placeholder({ title }) {
   return (
@@ -25,7 +26,14 @@ function App() {
 
           <Route path="/" element={<Home />} />
 
+          <Route
+            path="/vault"
+            element={<Vault />}
+          />
+
           <Route path="/about" element={<About />} />
+          
+
 
           <Route
             path="/education"
